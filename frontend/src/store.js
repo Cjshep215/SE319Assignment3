@@ -30,20 +30,26 @@ export function Store() {
             >
               <div className="card">
                 <img
-                  src={product.imageUrl}
+                  src={product.image}
                   className="card-img-top"
                   alt={product.name}
-                  style={{ objectFit: "cover", height: "200px" }} //This fits cards to same size
+                  style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
+                  <h5 className="card-title">{product.title}</h5>
                   <p className="card-text">{product.description}</p>
+                  <p className="card-price">${product.price}</p>
+                  <p classname="card-rating">Rating: {product.rating.rate}/5 - ({product.rating.count} reviews)</p>
+                  <p className="card-category">Category: {product.category}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+      //get element by id
+
+      
     );
   }
 
