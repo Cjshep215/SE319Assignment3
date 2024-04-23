@@ -12,32 +12,10 @@ export function Store() {
   }, []);
 
   function View1() {
-    //Create
+    //create
     return (
-      <div className="container mt-3">
-        <div className="row">
-          {myProducts.map((product) => (
-            <div
-              key={product.id}
-              className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-            >
-              <div className="card">
-                <img
-                  src={product.imageUrl}
-                  className="card-img-top"
-                  alt={product.name}
-                  style={{ objectFit: "cover", height: "200px" }} //This fits cards to same size
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">{product.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+        <h1>this is view 1</h1>
+    )
   }
 
   function View2() {
