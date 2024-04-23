@@ -11,11 +11,97 @@ export function Store() {
       .then((myProducts) => setMyProducts(myProducts));
   }, []);
 
+  const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
+    const [dataF, setDataF] = useState({});
+    
   function View1() {
+    const onSubmit = (data) => {
+        setDataF(data);
+        setViewThree();
+      };
     //create
     return (
-        <h1>this is view 1</h1>
-    )
+      <div className="card">
+        <h2>Add a Product:</h2>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)} className="container mt-5" id="infoForm">
+            <div className="form-group"> {/*TODO - Add patterns*/}
+                <input
+                  {...register("id", {required: true})} 
+                  placeholder="Id"
+                  className="form-control"
+                />
+                {errors.id && (
+                  <p className="text-danger">An id is required.</p>
+                )}
+                <input
+                  {...register("title", {required: true})}
+                  placeholder="Title"
+                  className="form-control"
+                />
+                {errors.title && (
+                  <p className="text-danger">A title is required.</p>
+                )}
+                <input
+                  {...register("price", {required: true})}
+                  placeholder="Price"
+                  className="form-control"
+                />
+                {errors.price && (
+                  <p className="text-danger">A price is required.</p>
+                )}
+                <input
+                  {...register("description", {required: true})}
+                  placeholder="Description"
+                  className="form-control"
+                />
+                {errors.description && (
+                  <p className="text-danger">A description is required.</p>
+                )}
+                <input
+                  {...register("category", {required: true})}
+                  placeholder="Category"
+                  className="form-control"
+                />
+                {errors.category && (
+                  <p className="text-danger">A category is required.</p>
+                )}
+                <input
+                  {...register("image", {required: true})}
+                  placeholder="Image Url"
+                  className="form-control"
+                />
+                {errors.image && (
+                  <p className="text-danger">An image is required.</p>
+                )}
+
+                <input
+                  {...register("rating", {required: true})}
+                  placeholder="Rating out of 5"
+                  className="form-control"
+                />
+                {errors.rating && (
+                  <p className="text-danger">The rating is required.</p>
+                )}
+                <input
+                  {...register("ratingCount", {required: true})}
+                  placeholder="Number of ratings"
+                  className="form-control"
+                />
+                {errors.ratingCount && (
+                  <p className="text-danger">The number of ratings is required.</p>
+                )}
+
+                
+            </div>
+          </form>
+        </div>
+      </div>
+    );
   }
 
   function View2() {
