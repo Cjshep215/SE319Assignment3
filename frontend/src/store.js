@@ -46,8 +46,9 @@ export function Store() {
             </div>
           ))}
         </div>
+        <input type="search" id="showProductId" placeholder="Id"></input>
+        <button onclick={showOneProduct()}>show one product by id</button>
       </div>
-      //get element by id
 
       
     );
@@ -94,6 +95,49 @@ export function Store() {
       </div>
     );
   }
+
+  function showOneProduct() {
+    //fetch
+    let id = document.getElementById("showProductId").value;
+    console.log(id);
+  
+    fetch(`http://localhost:8081/${id}`)
+      .then((response) => response.json())
+      .then((myFavoriteProduct) => {
+        loadOneProduct(myFavoriteProduct);
+      });
+  
+    function loadOneProduct(myFavoriteProduct) {
+      var CardMovie = document.getElementById("col2");
+  
+      //read every movie from the array
+      let id = myFavoriteProduct.id;
+      let name = myFavoriteProduct.name;
+      let price = myFavoriteProduct.price;
+      let description = myFavoriteProduct.description;
+      let url = myFavoriteProduct.imageUrl;
+  
+      //create a new html div
+      let AddCardMovie = document.createElement("div");
+      AddCardMovie.classList.add("col2");
+  
+      AddCardMovie.innerHTML = `
+              <div id=card class="card shadow-sm">
+                  <img src=${url} class="card-img-top" alt="..."></img>
+                  <div class="card-body">
+                      <p class="card-text">${id} <strong>${name}</strong>, ${price}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                              ${description}
+                          <div>
+                      </div>
+                  </div>
+              </div>
+          `;
+      CardMovie.appendChild(AddCardMovie);
+    }
+  }
+  
 
   const setViewOne = () => {
     if (oneView === 0) {
