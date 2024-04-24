@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { useForm } from "react-hook-form";
 
 export function Store() {
   const [oneView, setOneView] = useState(0);
@@ -12,23 +13,22 @@ export function Store() {
   }, []);
 
   const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
-    const [dataF, setDataF] = useState({});
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [dataF, setDataF] = useState({});
     
   function View1() {
-    const onSubmit = (data) => {
-        setDataF(data);
-        setViewThree();
-      };
+    // const onSubmit = (data) => {
+    //     setDataF(data);
+    //   };
     //create
     return (
       <div className="card">
         <h2>Add a Product:</h2>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="container mt-5" id="infoForm">
+          <form onSubmit="" className="container mt-5" id="infoForm">
             <div className="form-group"> {/*TODO - Add patterns*/}
                 <input
                   {...register("id", {required: true})} 
@@ -95,8 +95,9 @@ export function Store() {
                 {errors.ratingCount && (
                   <p className="text-danger">The number of ratings is required.</p>
                 )}
-
-                
+                <button type="submit" className="btn btn-primary">
+                  Add Product
+                </button>
             </div>
           </form>
         </div>
