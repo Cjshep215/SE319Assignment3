@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 export function Store() {
   const [oneView, setOneView] = useState(0);
   const [myProducts, setMyProducts] = useState([]);
+  const [showId, setShowId] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:8081/listProducts")
@@ -34,6 +35,7 @@ export function Store() {
                   {...register("id", {required: true})} 
                   placeholder="Id"
                   className="form-control"
+                  type="number"
                 />
                 {errors.id && (
                   <p className="text-danger">An id is required.</p>
@@ -50,6 +52,7 @@ export function Store() {
                   {...register("price", {required: true})}
                   placeholder="Price"
                   className="form-control"
+                  // type="number"
                 />
                 {errors.price && (
                   <p className="text-danger">A price is required.</p>
@@ -83,6 +86,7 @@ export function Store() {
                   {...register("rating", {required: true})}
                   placeholder="Rating out of 5"
                   className="form-control"
+                  // type="number"
                 />
                 {errors.rating && (
                   <p className="text-danger">The rating is required.</p>
@@ -91,6 +95,7 @@ export function Store() {
                   {...register("ratingCount", {required: true})}
                   placeholder="Number of ratings"
                   className="form-control"
+                  type="number"
                 />
                 {errors.ratingCount && (
                   <p className="text-danger">The number of ratings is required.</p>
@@ -133,8 +138,13 @@ export function Store() {
             </div>
           ))}
         </div>
-        <input type="search" id="showProductId" placeholder="Id"></input>
-        <button onclick={showOneProduct()}>show one product by id</button>
+        <form onSubmit={showOneProduct()}>
+          <input type="search" id="showProductId" placeholder="Id" onSubmit={e => setShowId(e.target.value)}></input>
+          <button type="submit">show one product by id</button>
+        </form>
+        <div id="col2">
+
+        </div>
       </div>
 
       
@@ -185,7 +195,7 @@ export function Store() {
 
   function showOneProduct() {
     //fetch
-    let id = document.getElementById("showProductId").value;
+    let id = showId;
     console.log(id);
   
     fetch(`http://localhost:8081/${id}`)
