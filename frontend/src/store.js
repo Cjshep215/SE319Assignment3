@@ -191,13 +191,24 @@ export function Store() {
   function View4() {
     //Delete
     return (
-      <div>
-        <h1>This is View 4</h1>
-        <img
-          src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
-          width={200}
-          alt="view4"
-        />
+      <div className="container">
+        <div className="row row-cols-1 mt-2">
+          <div className="col">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                {/* delete function inside of here */}
+                <div>
+                  <button>Previous product</button>
+                  <button>Next product</button>
+                </div>
+                <div>
+                  {/* put item here with information */}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
