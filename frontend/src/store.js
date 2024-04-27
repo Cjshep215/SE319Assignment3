@@ -236,23 +236,39 @@ export function Store() {
   }
   
 
+  // const setViewOne = () => {
+  //   if (oneView === 0) {
+  //     setOneView(1);
+  //   } else if (oneView === 1) {
+  //     setOneView(2);
+  //   } else if (oneView === 2) {
+  //     setOneView(3);
+  //   } else if (oneView === 3) {
+  //     setOneView(4);
+  //   } else {
+  //     setOneView(0);
+  //   }
+  // };
+
   const setViewOne = () => {
-    if (oneView === 0) {
-      setOneView(1);
-    } else if (oneView === 1) {
-      setOneView(2);
-    } else if (oneView === 2) {
-      setOneView(3);
-    } else if (oneView === 3) {
-      setOneView(4);
-    } else {
-      setOneView(0);
-    }
-  };
+    setOneView(0);
+  }
+  const setViewTwo = () => {
+    setOneView(1);
+  }
+  const setViewThree = () => {
+    setOneView(2);
+  }
+  const setViewFour = () => {
+    setOneView(3);
+  }
+  const setViewFive = () => {
+    setOneView(4);
+  }
+  
 
   return (
     <div>
-      <button onClick={setViewOne}>One</button>
       {/* navbar */}
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
     <div class="container-fluid">
@@ -264,19 +280,19 @@ export function Store() {
       <div class="collapse navbar-collapse" id="navbarsExample03">
         <ul class="navbar-nav me-auto mb-2 mb-sm-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Add</a>
+            <a class="nav-link" aria-current="page" onClick = {setViewOne}>Add</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">View</a>
+            <a class="nav-link" aria-current="page" onClick = {setViewTwo}>View</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Update</a>
+            <a class="nav-link" aria-current="page" onClick = {setViewThree}>Update</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Delete</a>
+            <a class="nav-link" aria-current="page" onClick = {setViewFour}>Delete</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Student Information</a>
+            <a class="nav-link" aria-current="page" onClick = {setViewFive}>Student Information</a>
           </li>
 
           
