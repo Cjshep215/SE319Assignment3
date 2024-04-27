@@ -183,12 +183,53 @@ export function Store() {
     //About Us
     return (
       <div>
-        <h1>This is View 5</h1>
-        <img
-          src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
-          width={200}
-          alt="view5"
-        />
+        {/* The view should contain complete correct names, email, of every team member.
+        Additionally, you should add the next information: course number, course name, date, professor name and a brief
+        paragraph of two-three lines introducing your project. */}
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 g-2 mb-2 mt-1">
+      {/* <!-- Connors card --> */}
+      <div class="col">
+          <div class="card shadow-sm">
+              <div class="card-body">
+                  <h3>Connor Shepherd</h3>
+                  <p class="card-text">I am majoring in Software Engineering at Iowa State. This year, I
+                      am taking Computer Science 327, Software Engineering 319, CyberSecurity Engineering
+                      230, and more.
+                  </p>
+                  <h6>Email: Cjshep@iastate.edu</h6>
+              </div>
+          </div>
+      </div>
+      {/* <!-- Lukes card --> */}
+      <div class="col">
+          <div class="card shadow-sm">
+              <div class="card-body">
+                  <h3>Luke Herbsleb</h3>
+                  <p class="card-text">I am a second year student at Iowa State University. This spring
+                      semester I am taking Coms 309, 319, 311 and more.
+                  </p>
+                  <h6>Email: lherb@iastate.edu</h6>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row row-cols-1 g-2">
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>course number: SE/Coms 319</h5>
+          <h5>course name: Construction of User Interfaces</h5>
+          <h5>date: 4/27/2024</h5>
+          <h5>professor name: Dr. Abraham Aldaco</h5>
+          <p>This is assignment 3 in SE/Coms 319. This project involves using MERN(Mongo, Express, React, Nodejs) to communicate between frontend and backend. We also use technologies such as bootstrap to enhance the visual apperance of the webpage.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
       </div>
     );
   }
