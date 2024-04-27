@@ -14,15 +14,6 @@ export function Store() {
       .then((myProducts) => setMyProducts(myProducts));
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:8081/${showId}`)
-  //     .then((response) => response.json())
-  //     .then((myFavProduct) => {
-  //       console.log(myFavProduct);
-  //       setMyFavProduct(myFavProduct);
-  //     });
-  // }, []);
-
   const {
     register,
     handleSubmit,
@@ -138,7 +129,41 @@ export function Store() {
   }
 
   function View2() {
-    let tmpHtml = (
+    let favProduct = <div></div>;
+
+    if (showId != 0) {
+      let tmpId = showId;
+      fetch(`http://localhost:8081/${tmpId}`)
+        .then((response) => response.json())
+        .then((myFavProduct) => {
+          console.log(myFavProduct);
+          setMyFavProduct(myFavProduct);
+        });
+
+      favProduct = (
+        <div className="card">
+          <img
+            src={myFavProduct.image}
+            className="card-img-top"
+            alt={myFavProduct.title}
+            style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
+          />
+          <div className="card-body">
+            <h5 className="card-title">{myFavProduct.title}</h5>
+            <p className="card-text">{myFavProduct.description}</p>
+            <p className="card-price">${myFavProduct.price}</p>
+            <p className="card-rating">
+              Rating: {myFavProduct.rating.rate}/5 - (
+              {myFavProduct.rating.count} reviews)
+            </p>
+            <p className="card-category">Category: {myFavProduct.category}</p>
+            <p className="card-id">Id: {myFavProduct.id}</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
       <div className="container mt-3">
         <div className="row">
           {myProducts.map((product) => (
@@ -177,48 +202,14 @@ export function Store() {
           ></input>
           <button type="submit">show one product by id</button>
         </form>
-        <div id="col2"></div>
+        <div id="col2">
+          <favProduct />
+        </div>
         <br />
       </div>
     );
-
-    if (showId != 0) {
-      let tmpId = showId;
-      fetch(`http://localhost:8081/${tmpId}`)
-        .then((response) => response.json())
-        .then((myFavProduct) => {
-          console.log(myFavProduct);
-          setMyFavProduct(myFavProduct);
-        });
-
-      let newChild = tmpHtml.getElementById("col2");
-
-      newChild.innerHtml = (
-          <div className="card">
-            <img
-              src={myFavProduct.image}
-              className="card-img-top"
-              alt={myFavProduct.title}
-              style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
-              />
-                <div className="card-body">
-                  <h5 className="card-title">{myFavProduct.title}</h5>
-                  <p className="card-text">{myFavProduct.description}</p>
-                  <p className="card-price">${myFavProduct.price}</p>
-                  <p className="card-rating">
-                    Rating: {myFavProduct.rating.rate}/5 - ({myFavProduct.rating.count}{" "}
-                    reviews)
-                  </p>
-                  <p className="card-category">Category: {myFavProduct.category}</p>
-                  <p className="card-id">Id: {myFavProduct.id}</p>
-                </div>
-          </div>
-      );
-
-      // tmpHtml
-    }
-    return tmpHtml;
   }
+  
 
   function View3() {
     //Update
