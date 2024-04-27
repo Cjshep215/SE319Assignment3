@@ -18,91 +18,108 @@ export function Store() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [dataF, setDataF] = useState({});
     
   function View1() {
-    // const onSubmit = (data) => {
-    //     setDataF(data);
-    //   };
+    const onSubmit = (data) => {
+      fetch(`http://localhost:8081/addProduct`, {
+        method: "POST",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          "id": Number(data.id),
+          "title": data.title,
+          "price": Number(data.price),
+          "description": data.description,
+          "category": data.category,
+          "image": data.image,
+          "ratingRate": Number(data.ratingRate),
+          "ratingCount": Number(data.ratingCount)
+        }),
+      }).then((response) => response.json());
+    };
     //create
     return (
       <div className="card">
         <h2>Add a Product:</h2>
         <div>
-          <form onSubmit="" className="container mt-5" id="infoForm">
-            <div className="form-group"> {/*TODO - Add patterns*/}
-                <input
-                  {...register("id", {required: true})} 
-                  placeholder="Id"
-                  className="form-control"
-                  type="number"
-                />
-                {errors.id && (
-                  <p className="text-danger">An id is required.</p>
-                )}
-                <input
-                  {...register("title", {required: true})}
-                  placeholder="Title"
-                  className="form-control"
-                />
-                {errors.title && (
-                  <p className="text-danger">A title is required.</p>
-                )}
-                <input
-                  {...register("price", {required: true})}
-                  placeholder="Price"
-                  className="form-control"
-                  // type="number"
-                />
-                {errors.price && (
-                  <p className="text-danger">A price is required.</p>
-                )}
-                <input
-                  {...register("description", {required: true})}
-                  placeholder="Description"
-                  className="form-control"
-                />
-                {errors.description && (
-                  <p className="text-danger">A description is required.</p>
-                )}
-                <input
-                  {...register("category", {required: true})}
-                  placeholder="Category"
-                  className="form-control"
-                />
-                {errors.category && (
-                  <p className="text-danger">A category is required.</p>
-                )}
-                <input
-                  {...register("image", {required: true})}
-                  placeholder="Image Url"
-                  className="form-control"
-                />
-                {errors.image && (
-                  <p className="text-danger">An image is required.</p>
-                )}
-
-                <input
-                  {...register("rating", {required: true})}
-                  placeholder="Rating out of 5"
-                  className="form-control"
-                  // type="number"
-                />
-                {errors.rating && (
-                  <p className="text-danger">The rating is required.</p>
-                )}
-                <input
-                  {...register("ratingCount", {required: true})}
-                  placeholder="Number of ratings"
-                  className="form-control"
-                  type="number"
-                />
-                {errors.ratingCount && (
-                  <p className="text-danger">The number of ratings is required.</p>
-                )}
-                <button type="submit" className="btn btn-primary">
-                  Add Product
-                </button>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="container mt-5"
+            id="infoForm"
+          >
+            <div className="form-group">
+              {" "}
+              {/*TODO - Add patterns*/}
+              <input
+                {...register("id", { required: true })}
+                placeholder="Id"
+                className="form-control"
+                type="number"
+              />
+              {errors.id && <p className="text-danger">An id is required.</p>}
+              <input
+                {...register("title", { required: true })}
+                placeholder="Title"
+                className="form-control"
+              />
+              {errors.title && (
+                <p className="text-danger">A title is required.</p>
+              )}
+              <input
+                {...register("price", { required: true })}
+                placeholder="Price"
+                className="form-control"
+                // type="number"
+              />
+              {errors.price && (
+                <p className="text-danger">A price is required.</p>
+              )}
+              <input
+                {...register("description", { required: true })}
+                placeholder="Description"
+                className="form-control"
+              />
+              {errors.description && (
+                <p className="text-danger">A description is required.</p>
+              )}
+              <input
+                {...register("category", { required: true })}
+                placeholder="Category"
+                className="form-control"
+              />
+              {errors.category && (
+                <p className="text-danger">A category is required.</p>
+              )}
+              <input
+                {...register("image", { required: true })}
+                placeholder="Image Url"
+                className="form-control"
+              />
+              {errors.image && (
+                <p className="text-danger">An image is required.</p>
+              )}
+              <input
+                {...register("ratingRate", { required: true })}
+                placeholder="Rating out of 5"
+                className="form-control"
+                // type="number"
+              />
+              {errors.rating && (
+                <p className="text-danger">The rating is required.</p>
+              )}
+              <input
+                {...register("ratingCount", { required: true })}
+                placeholder="Number of ratings"
+                className="form-control"
+                type="number"
+              />
+              {errors.ratingCount && (
+                <p className="text-danger">
+                  The number of ratings is required.
+                </p>
+              )}
+              <button type="submit" className="btn btn-primary">
+                Add Product
+              </button>
             </div>
           </form>
         </div>
@@ -124,7 +141,7 @@ export function Store() {
                 <img
                   src={product.image}
                   className="card-img-top"
-                  alt={product.name}
+                  alt={product.title}
                   style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
                 />
                 <div className="card-body">
@@ -187,14 +204,14 @@ export function Store() {
         Additionally, you should add the next information: course number, course name, date, professor name and a brief
         paragraph of two-three lines introducing your project. */}
 
-<div class="container">
-  <div class="row row-cols-1 row-cols-sm-2 g-2 mb-2 mt-1">
+<div className="container">
+  <div className="row row-cols-1 row-cols-sm-2 g-2 mb-2 mt-1">
       {/* <!-- Connors card --> */}
-      <div class="col">
-          <div class="card shadow-sm">
-              <div class="card-body">
+      <div className="col">
+          <div className="card shadow-sm">
+              <div className="card-body">
                   <h3>Connor Shepherd</h3>
-                  <p class="card-text">I am majoring in Software Engineering at Iowa State. This year, I
+                  <p className="card-text">I am majoring in Software Engineering at Iowa State. This year, I
                       am taking Computer Science 327, Software Engineering 319, CyberSecurity Engineering
                       230, and more.
                   </p>
@@ -203,11 +220,11 @@ export function Store() {
           </div>
       </div>
       {/* <!-- Lukes card --> */}
-      <div class="col">
-          <div class="card shadow-sm">
-              <div class="card-body">
+      <div className="col">
+          <div className="card shadow-sm">
+              <div className="card-body">
                   <h3>Luke Herbsleb</h3>
-                  <p class="card-text">I am a second year student at Iowa State University. This spring
+                  <p className="card-text">I am a second year student at Iowa State University. This spring
                       semester I am taking Coms 309, 319, 311 and more.
                   </p>
                   <h6>Email: lherb@iastate.edu</h6>
@@ -215,10 +232,10 @@ export function Store() {
           </div>
       </div>
   </div>
-  <div class="row row-cols-1 g-2">
-    <div class="col">
-      <div class="card shadow-sm">
-        <div class="card-body">
+  <div className="row row-cols-1 g-2">
+    <div className="col">
+      <div className="card shadow-sm">
+        <div className="card-body">
           <h5>course number: SE/Coms 319</h5>
           <h5>course name: Construction of User Interfaces</h5>
           <h5>date: 4/27/2024</h5>

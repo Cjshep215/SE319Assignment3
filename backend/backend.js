@@ -48,12 +48,17 @@ app.post("/addProduct", async (req, res) => {
     const keys = Object.keys(req.body);
     const values = Object.values(req.body);
 
-    const newDocument = { //FIX
-      id: values[0], //also "id": req.body.id
-      name: values[1], //also "name": req.body.name
-      price: values[2], //also "price": req.body.price
-      description: values[3], //also "description": req.body.description
-      imageUrl: values[4], //also "imageUrl": req.body.imageUrl
+    const newDocument = {
+      id: req.body.id,
+      title: req.body.title,
+      price: req.body.price,
+      description: req.body.description,
+      category: req.body.category,
+      image: req.body.image,
+      rating: {
+        rate: req.body.ratingRate,
+        count: req.body.ratingCount
+      }
     };
 
     console.log(newDocument);
