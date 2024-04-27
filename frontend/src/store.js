@@ -277,20 +277,6 @@ export function Store() {
   }
   
 
-  // const setViewOne = () => {
-  //   if (oneView === 0) {
-  //     setOneView(1);
-  //   } else if (oneView === 1) {
-  //     setOneView(2);
-  //   } else if (oneView === 2) {
-  //     setOneView(3);
-  //   } else if (oneView === 3) {
-  //     setOneView(4);
-  //   } else {
-  //     setOneView(0);
-  //   }
-  // };
-
   const setViewOne = () => {
     setOneView(0);
   }
