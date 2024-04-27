@@ -133,6 +133,7 @@ export function Store() {
                   <p className="card-price">${product.price}</p>
                   <p classname="card-rating">Rating: {product.rating.rate}/5 - ({product.rating.count} reviews)</p>
                   <p className="card-category">Category: {product.category}</p>
+                  <p className="card-id">Id: {product.id}</p>
                 </div>
               </div>
             </div>
@@ -143,10 +144,9 @@ export function Store() {
           <button type="submit">show one product by id</button>
         </form>
         <div id="col2">
-
         </div>
+        <br/>
       </div>
-
       
     );
   }
