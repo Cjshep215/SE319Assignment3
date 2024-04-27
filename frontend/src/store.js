@@ -267,7 +267,9 @@ export function Store() {
     //fetch
     let id = showId;
     console.log(id);
-
+    if (id == 0){
+      return;
+    }
     fetch(`http://localhost:8081/${id}`)
       .then((response) => response.json())
       .then((myFavoriteProduct) => {
