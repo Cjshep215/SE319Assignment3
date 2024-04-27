@@ -131,7 +131,7 @@ export function Store() {
                   <h5 className="card-title">{product.title}</h5>
                   <p className="card-text">{product.description}</p>
                   <p className="card-price">${product.price}</p>
-                  <p classname="card-rating">Rating: {product.rating.rate}/5 - ({product.rating.count} reviews)</p>
+                  <p className="card-rating">Rating: {product.rating.rate}/5 - ({product.rating.count} reviews)</p>
                   <p className="card-category">Category: {product.category}</p>
                   <p className="card-id">Id: {product.id}</p>
                 </div>
