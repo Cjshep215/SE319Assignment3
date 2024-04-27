@@ -20,26 +20,30 @@ app.get("/listProducts", async (req, res) => {
   await client.connect();
   console.log("Node connected successfully to GET MongoDB");
   const query = {};
-  const results = await db.collection("fakestore_catalog").find(query).limit(100).toArray();
+  const results = await db
+    .collection("fakestore_catalog")
+    .find(query)
+    .limit(100)
+    .toArray();
   console.log(results);
   res.status(200);
   res.send(results);
 });
 
-app.get("/:id", async(req, res) =>{
+app.get("/:id", async (req, res) => {
   console.log(req.params);
-    const productid = Number(req.params.id);
-    console.log("Product to find: ", productid);
+  const productid = Number(req.params.id);
+  console.log("Product to find: ", productid);
 
-    await client.connect();
-    console.log("Node connected successfully to GET-id MongoDB");
-    const query = {"id": productid};
+  await client.connect();
+  console.log("Node connected successfully to GET-id MongoDB");
+  const query = { id: productid };
 
-    const results = await db.collection("fakestore_catalog").findOne(query);
+  const results = await db.collection("fakestore_catalog").findOne(query);
 
-    console.log("Results: ", results);
-    if(!results) res.send("Not Found").status(404);
-    else res.send(results).status(200);
+  console.log("Results: ", results);
+  if (!results) res.send("Not Found").status(404);
+  else res.send(results).status(200);
 });
 
 app.post("/addProduct", async (req, res) => {
@@ -57,13 +61,15 @@ app.post("/addProduct", async (req, res) => {
       image: req.body.image,
       rating: {
         rate: req.body.ratingRate,
-        count: req.body.ratingCount
-      }
+        count: req.body.ratingCount,
+      },
     };
 
     console.log(newDocument);
 
-    const results = await db.collection("fakestore_catalog").insertOne(newDocument);
+    const results = await db
+      .collection("fakestore_catalog")
+      .insertOne(newDocument);
     res.status(200);
     res.send(results);
   } catch (error) {
@@ -79,14 +85,15 @@ app.delete("/deleteProduct/:id", async (req, res) => {
     console.log("Product to delete :", id);
     const query = { id: id };
 
-    const productDeleted = await db.collection("fakestore_catalog").findOne(query);
+    const productDeleted = await db
+      .collection("fakestore_catalog")
+      .findOne(query);
 
     // delete
     const results = await db.collection("fakestore_catalog").deleteOne(query);
     res.status(200);
     // res.send(results);
     res.send(productDeleted);
-
   } catch (error) {
     console.error("Error deleting product:", error);
     res.status(500).send({ message: "Internal Server Error" });

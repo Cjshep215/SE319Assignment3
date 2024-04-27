@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useForm } from "react-hook-form";
 
@@ -18,21 +18,21 @@ export function Store() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-    
+
   function View1() {
     const onSubmit = (data) => {
       fetch(`http://localhost:8081/addProduct`, {
         method: "POST",
-        headers: { 'content-type': 'application/json' },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          "id": Number(data.id),
-          "title": data.title,
-          "price": Number(data.price),
-          "description": data.description,
-          "category": data.category,
-          "image": data.image,
-          "ratingRate": Number(data.ratingRate),
-          "ratingCount": Number(data.ratingCount)
+          id: Number(data.id),
+          title: data.title,
+          price: Number(data.price),
+          description: data.description,
+          category: data.category,
+          image: data.image,
+          ratingRate: Number(data.ratingRate),
+          ratingCount: Number(data.ratingCount),
         }),
       }).then((response) => response.json());
     };
@@ -148,7 +148,10 @@ export function Store() {
                   <h5 className="card-title">{product.title}</h5>
                   <p className="card-text">{product.description}</p>
                   <p className="card-price">${product.price}</p>
-                  <p className="card-rating">Rating: {product.rating.rate}/5 - ({product.rating.count} reviews)</p>
+                  <p className="card-rating">
+                    Rating: {product.rating.rate}/5 - ({product.rating.count}{" "}
+                    reviews)
+                  </p>
                   <p className="card-category">Category: {product.category}</p>
                   <p className="card-id">Id: {product.id}</p>
                 </div>
@@ -157,14 +160,17 @@ export function Store() {
           ))}
         </div>
         <form onSubmit={showOneProduct()}>
-          <input type="search" id="showProductId" placeholder="Id" onSubmit={e => setShowId(e.target.value)}></input>
+          <input
+            type="search"
+            id="showProductId"
+            placeholder="Id"
+            onSubmit={(e) => setShowId(e.target.value)}
+          ></input>
           <button type="submit">show one product by id</button>
         </form>
-        <div id="col2">
-        </div>
-        <br/>
+        <div id="col2"></div>
+        <br />
       </div>
-      
     );
   }
 
@@ -204,49 +210,55 @@ export function Store() {
         Additionally, you should add the next information: course number, course name, date, professor name and a brief
         paragraph of two-three lines introducing your project. */}
 
-<div className="container">
-  <div className="row row-cols-1 row-cols-sm-2 g-2 mb-2 mt-1">
-      {/* <!-- Connors card --> */}
-      <div className="col">
-          <div className="card shadow-sm">
-              <div className="card-body">
+        <div className="container">
+          <div className="row row-cols-1 row-cols-sm-2 g-2 mb-2 mt-1">
+            {/* <!-- Connors card --> */}
+            <div className="col">
+              <div className="card shadow-sm">
+                <div className="card-body">
                   <h3>Connor Shepherd</h3>
-                  <p className="card-text">I am majoring in Software Engineering at Iowa State. This year, I
-                      am taking Computer Science 327, Software Engineering 319, CyberSecurity Engineering
-                      230, and more.
+                  <p className="card-text">
+                    I am majoring in Software Engineering at Iowa State. This
+                    year, I am taking Computer Science 327, Software Engineering
+                    319, CyberSecurity Engineering 230, and more.
                   </p>
                   <h6>Email: Cjshep@iastate.edu</h6>
+                </div>
               </div>
-          </div>
-      </div>
-      {/* <!-- Lukes card --> */}
-      <div className="col">
-          <div className="card shadow-sm">
-              <div className="card-body">
+            </div>
+            {/* <!-- Lukes card --> */}
+            <div className="col">
+              <div className="card shadow-sm">
+                <div className="card-body">
                   <h3>Luke Herbsleb</h3>
-                  <p className="card-text">I am a second year student at Iowa State University. This spring
-                      semester I am taking Coms 309, 319, 311 and more.
+                  <p className="card-text">
+                    I am a second year student at Iowa State University. This
+                    spring semester I am taking Coms 309, 319, 311 and more.
                   </p>
                   <h6>Email: lherb@iastate.edu</h6>
+                </div>
               </div>
+            </div>
           </div>
-      </div>
-  </div>
-  <div className="row row-cols-1 g-2">
-    <div className="col">
-      <div className="card shadow-sm">
-        <div className="card-body">
-          <h5>course number: SE/Coms 319</h5>
-          <h5>course name: Construction of User Interfaces</h5>
-          <h5>date: 4/27/2024</h5>
-          <h5>professor name: Dr. Abraham Aldaco</h5>
-          <p>This is assignment 3 in SE/Coms 319. This project involves using MERN(Mongo, Express, React, Nodejs) to communicate between frontend and backend. We also use technologies such as bootstrap to enhance the visual apperance of the webpage.</p>
+          <div className="row row-cols-1 g-2">
+            <div className="col">
+              <div className="card shadow-sm">
+                <div className="card-body">
+                  <h5>course number: SE/Coms 319</h5>
+                  <h5>course name: Construction of User Interfaces</h5>
+                  <h5>date: 4/27/2024</h5>
+                  <h5>professor name: Dr. Abraham Aldaco</h5>
+                  <p>
+                    This is assignment 3 in SE/Coms 319. This project involves
+                    using MERN(Mongo, Express, React, Nodejs) to communicate
+                    between frontend and backend. We also use technologies such
+                    as bootstrap to enhance the visual apperance of the webpage.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-        
       </div>
     );
   }
@@ -255,27 +267,27 @@ export function Store() {
     //fetch
     let id = showId;
     console.log(id);
-  
+
     fetch(`http://localhost:8081/${id}`)
       .then((response) => response.json())
       .then((myFavoriteProduct) => {
         loadOneProduct(myFavoriteProduct);
       });
-  
+
     function loadOneProduct(myFavoriteProduct) {
       var CardMovie = document.getElementById("col2");
-  
+
       //read every movie from the array
       let id = myFavoriteProduct.id;
       let name = myFavoriteProduct.name;
       let price = myFavoriteProduct.price;
       let description = myFavoriteProduct.description;
       let url = myFavoriteProduct.imageUrl;
-  
+
       //create a new html div
       let AddCardMovie = document.createElement("div");
       AddCardMovie.classList.add("col2");
-  
+
       AddCardMovie.innerHTML = `
               <div id=card class="card shadow-sm">
                   <img src=${url} class="card-img-top" alt="..."></img>
@@ -292,60 +304,76 @@ export function Store() {
       CardMovie.appendChild(AddCardMovie);
     }
   }
-  
 
   const setViewOne = () => {
     setOneView(0);
-  }
+  };
   const setViewTwo = () => {
     setOneView(1);
-  }
+  };
   const setViewThree = () => {
     setOneView(2);
-  }
+  };
   const setViewFour = () => {
     setOneView(3);
-  }
+  };
   const setViewFive = () => {
     setOneView(4);
-  }
-  
+  };
 
   return (
     <div>
       {/* navbar */}
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-    <div class="container-fluid">
-      <a class="navbar-brand">Fake Store</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <nav
+        class="navbar navbar-expand-sm navbar-dark bg-dark"
+        aria-label="Third navbar example"
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand">Fake Store</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarsExample03"
+            aria-controls="navbarsExample03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExample03">
-        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" onClick = {setViewOne}>Add</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" onClick = {setViewTwo}>View</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" onClick = {setViewThree}>Update</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" onClick = {setViewFour}>Delete</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" onClick = {setViewFive}>Student Information</a>
-          </li>
-
-          
-          
-        </ul>
-      </div>
-    {/* can add a thing on the right here */}
-    </div>
-  </nav>
+          <div class="collapse navbar-collapse" id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" onClick={setViewOne}>
+                  Add
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" onClick={setViewTwo}>
+                  View
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" onClick={setViewThree}>
+                  Update
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" onClick={setViewFour}>
+                  Delete
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" onClick={setViewFive}>
+                  Student Information
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* can add a thing on the right here */}
+        </div>
+      </nav>
 
       {oneView === 0 && <View1 />}
       {oneView === 1 && <View2 />}
