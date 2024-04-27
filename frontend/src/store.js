@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 export function Store() {
   const [oneView, setOneView] = useState(0);
   const [myProducts, setMyProducts] = useState([]);
+  const [myFavProduct, setMyFavProduct] = useState([]);
   const [showId, setShowId] = useState(0);
 
   useEffect(() => {
@@ -12,6 +13,15 @@ export function Store() {
       .then((response) => response.json())
       .then((myProducts) => setMyProducts(myProducts));
   }, []);
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:8081/${showId}`)
+  //     .then((response) => response.json())
+  //     .then((myFavProduct) => {
+  //       console.log(myFavProduct);
+  //       setMyFavProduct(myFavProduct);
+  //     });
+  // }, []);
 
   const {
     register,
@@ -128,8 +138,7 @@ export function Store() {
   }
 
   function View2() {
-    //Read
-    return (
+    let tmpHtml = (
       <div className="container mt-3">
         <div className="row">
           {myProducts.map((product) => (
@@ -172,6 +181,43 @@ export function Store() {
         <br />
       </div>
     );
+
+    if (showId != 0) {
+      let tmpId = showId;
+      fetch(`http://localhost:8081/${tmpId}`)
+        .then((response) => response.json())
+        .then((myFavProduct) => {
+          console.log(myFavProduct);
+          setMyFavProduct(myFavProduct);
+        });
+
+      let newChild = tmpHtml.getElementById("col2");
+
+      newChild.innerHtml = (
+          <div className="card">
+            <img
+              src={myFavProduct.image}
+              className="card-img-top"
+              alt={myFavProduct.title}
+              style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
+              />
+                <div className="card-body">
+                  <h5 className="card-title">{myFavProduct.title}</h5>
+                  <p className="card-text">{myFavProduct.description}</p>
+                  <p className="card-price">${myFavProduct.price}</p>
+                  <p className="card-rating">
+                    Rating: {myFavProduct.rating.rate}/5 - ({myFavProduct.rating.count}{" "}
+                    reviews)
+                  </p>
+                  <p className="card-category">Category: {myFavProduct.category}</p>
+                  <p className="card-id">Id: {myFavProduct.id}</p>
+                </div>
+          </div>
+      );
+
+      // tmpHtml
+    }
+    return tmpHtml;
   }
 
   function View3() {
@@ -277,33 +323,34 @@ export function Store() {
       });
 
     function loadOneProduct(myFavoriteProduct) {
-      var CardMovie = document.getElementById("col2");
+      console.log(myFavoriteProduct);
+      // var CardMovie = document.getElementById("col2");
 
-      //read every movie from the array
-      let id = myFavoriteProduct.id;
-      let name = myFavoriteProduct.name;
-      let price = myFavoriteProduct.price;
-      let description = myFavoriteProduct.description;
-      let url = myFavoriteProduct.imageUrl;
+      // //read every movie from the array
+      // let id = myFavoriteProduct.id;
+      // let name = myFavoriteProduct.name;
+      // let price = myFavoriteProduct.price;
+      // let description = myFavoriteProduct.description;
+      // let url = myFavoriteProduct.imageUrl;
 
-      //create a new html div
-      let AddCardMovie = document.createElement("div");
-      AddCardMovie.classList.add("col2");
+      // //create a new html div
+      // let AddCardMovie = document.createElement("div");
+      // AddCardMovie.classList.add("col2");
 
-      AddCardMovie.innerHTML = `
-              <div id=card className="card shadow-sm">
-                  <img src=${url} className="card-img-top" alt="..."></img>
-                  <div className="card-body">
-                      <p className="card-text">${id} <strong>${name}</strong>, ${price}</p>
-                      <div className="d-flex justify-content-between align-items-center">
-                          <div>
-                              ${description}
-                          <div>
-                      </div>
-                  </div>
-              </div>
-          `;
-      CardMovie.appendChild(AddCardMovie);
+      // AddCardMovie.innerHTML = `
+      //         <div id=card className="card shadow-sm">
+      //             <img src=${url} className="card-img-top" alt="..."></img>
+      //             <div className="card-body">
+      //                 <p className="card-text">${id} <strong>${name}</strong>, ${price}</p>
+      //                 <div className="d-flex justify-content-between align-items-center">
+      //                     <div>
+      //                         ${description}
+      //                     <div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     `;
+      // CardMovie.appendChild(AddCardMovie);
     }
   }
 
