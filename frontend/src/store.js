@@ -291,11 +291,11 @@ export function Store() {
       AddCardMovie.classList.add("col2");
 
       AddCardMovie.innerHTML = `
-              <div id=card class="card shadow-sm">
-                  <img src=${url} class="card-img-top" alt="..."></img>
-                  <div class="card-body">
-                      <p class="card-text">${id} <strong>${name}</strong>, ${price}</p>
-                      <div class="d-flex justify-content-between align-items-center">
+              <div id=card className="card shadow-sm">
+                  <img src=${url} className="card-img-top" alt="..."></img>
+                  <div className="card-body">
+                      <p className="card-text">${id} <strong>${name}</strong>, ${price}</p>
+                      <div className="d-flex justify-content-between align-items-center">
                           <div>
                               ${description}
                           <div>
@@ -327,13 +327,13 @@ export function Store() {
     <div>
       {/* navbar */}
       <nav
-        class="navbar navbar-expand-sm navbar-dark bg-dark"
+        className="navbar navbar-expand-sm navbar-dark bg-dark"
         aria-label="Third navbar example"
       >
-        <div class="container-fluid">
-          <a class="navbar-brand">Fake Store</a>
+        <div className="container-fluid">
+          <a className="navbar-brand">Fake Store</a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarsExample03"
@@ -341,33 +341,33 @@ export function Store() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarsExample03">
-            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" onClick={setViewOne}>
+          <div className="collapse navbar-collapse" id="navbarsExample03">
+            <ul className="navbar-nav me-auto mb-2 mb-sm-0">
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" onClick={setViewOne}>
                   Add
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" onClick={setViewTwo}>
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" onClick={setViewTwo}>
                   View
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" onClick={setViewThree}>
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" onClick={setViewThree}>
                   Update
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" onClick={setViewFour}>
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" onClick={setViewFour}>
                   Delete
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" onClick={setViewFive}>
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" onClick={setViewFive}>
                   Student Information
                 </a>
               </li>
