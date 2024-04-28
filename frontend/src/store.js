@@ -289,27 +289,80 @@ export function Store() {
 
   const View4 = () => {
     //Delete
-    return (
-      <div className="container">
-        <div className="row row-cols-1 mt-2">
-          <div className="col">
-            <div className="card shadow-sm">
-              <div className="card-body">
-                {/* delete function inside of here */}
-                <div>
-                  <button>Previous product</button>
-                  <button>Next product</button>
-                </div>
-                <div>
-                  {/* put item here with information */}
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    //define hooks
+    const [products, setProducts] = useState([
+      {
+        id: "",
+        title: "",
+        price: "",
+        description: "",
+        category: "",
+        image: "",
+        rating: "",
+      },
+    ]);
+    const [index, setIndex] = useState(0);
+    
+    // useEffect to load catalog when load page
+    useEffect(() => {
+      fetch("http://localhost:8081/listProducts")
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data);
+          console.log("Load initial Catalog of Products in DELETE :", data);
+        });
+    }, []);
+    // Function to review products like carousel
+    function getOneByOneProductNext() {
+      if (products.length > 0) {
+        if (index === products.length - 1) setIndex(0);
+        else setIndex(index + 1);
+      }
+    }
+    // Function to review products like carousel
+    function getOneByOneProductPrev() {
+      if (products.length > 0) {
+        if (index === 0) setIndex(products.length - 1);
+        else setIndex(index - 1);
+      }
+    }
+    // Delete de product by its id <- id is Hook
+    const deleteOneProduct = (id) => {
+      console.log("Product to delete :", id);
+      fetch("http://localhost:8081/deleteProducts/" + id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id }),
+      })
+        .then((response) => {
+          if (response.status != 200) {
+            return response.json().then((errData) => {
+              throw new Error(
+                `POST response was not ok :\n Status:${response.status}. \n Error: ${errData.error}`
+              );
+            });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Delete a product completed : ", id);
+          console.log(data);
+          // reload products from the local products array
+          const newProducts = products.filter((product) => product.id !== id);
+          setProducts(newProducts);
+          setIndex(0);
+          // show alert
+          if (data) {
+            const key = Object.keys(data);
+            const value = Object.values(data);
+            alert(key + value);
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding item:", error);
+          alert("Error adding Product:" + error.message); // Display alert if there's an error
+        });
+    };
   }
 
   const View5 = () => {
