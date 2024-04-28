@@ -413,7 +413,7 @@ export function Store() {
 
     // useEffect to load catalog when load page
     useEffect(() => {
-      fetch("http://localhost:8081/listProducts")
+      fetch("http://localhost:8081/listProducts/")
         .then((response) => response.json())
         .then((data) => {
           setProducts(data);
@@ -437,7 +437,7 @@ export function Store() {
     // Delete de product by its id <- id is Hook
     const deleteOneProduct = (id) => {
       console.log("Product to delete :", id);
-      fetch("http://localhost:8081/deleteProducts/" + id, {
+      fetch("http://localhost:8081/deleteProduct/" + id, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: id }),
