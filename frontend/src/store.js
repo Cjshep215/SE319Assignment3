@@ -135,40 +135,20 @@ export function Store() {
   }
 
   const View2 = () => {
-    function FavProduct(){
-      if (showId != 0) {
-        let tmpId = showId;
-        fetch(`http://localhost:8081/${tmpId}`)
+    const [oneProduct, setOneProduct] = useState([]);
+    // const navigate = useNavigate();
+    const [id, setId] = useState("");
+
+    useEffect(() => {
+      if (id) {
+        fetch(`http://localhost:8081/${id}`)
           .then((response) => response.json())
-          .then((myFavProduct) => {
-            // console.log(myFavProduct);
-            setMyFavProduct(myFavProduct);
+          .then((data) => {
+            console.log("Show one product :", data);
+            setOneProduct(data);
           });
-  
-        return (
-          <div className="card">
-            <img
-              src={myFavProduct.image}
-              className="card-img-top"
-              alt={myFavProduct.title}
-              style={{ objectFit: "cover", height: "auto" }} //This fits cards to same size
-            />
-            <div className="card-body">
-              <h5 className="card-title">{myFavProduct.title}</h5>
-              <p className="card-text">{myFavProduct.description}</p>
-              <p className="card-price">${myFavProduct.price}</p>
-              <p className="card-rating">
-                Rating: {myFavProduct.rating.rate}/5 - (
-                {myFavProduct.rating.count} reviews)
-              </p>
-              <p className="card-category">Category: {myFavProduct.category}</p>
-              <p className="card-id">Id: {myFavProduct.id}</p>
-            </div>
-          </div>
-        );
       }
-      return<div></div>;
-    }
+    }, [id]);
 
     return (
       <div className="container mt-3">
@@ -200,22 +180,27 @@ export function Store() {
             </div>
           ))}
         </div>
-        <form onSubmit={showOneProduct()}>
-          <input
-            type="search"
-            id="showProductId"
-            placeholder="Id"
-            onSubmit={(e) => setShowId(e.target.value)}
-          ></input>
-          <button type="submit">show one product by id</button>
-        </form>
-        <div id="col2">
-          <FavProduct />
+        <div className="container">
+
+        <input
+          type="text"
+          placeholder="Enter ID"
+          onChange={(e) => setId(e.target.value)}
+        />
+        {oneProduct.map((el) => (
+          <div key={el.id}>
+            <img src={el.image} alt="product" width={30} />
+            <div>Title: {el.title}</div>
+            <div>Category: {el.category}</div>
+            <div>Price: {el.price}</div>
+            <div>Rating: {el.rating.rate}</div>
+          </div>
+        ))}
         </div>
         <br />
       </div>
     );
-  }
+  };
 
   const View3 = () => {
     const [products, setProducts] = useState([
@@ -228,8 +213,8 @@ export function Store() {
         image: "",
         rating: {
           rate: "",
-          count: ""
-        }
+          count: "",
+        },
       },
     ]);
 
@@ -310,10 +295,7 @@ export function Store() {
                 </div>
               </div>
               <div className="card-body">
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  id="infoForm"
-                >
+                <form onSubmit={handleSubmit(onSubmit)} id="infoForm">
                   <div className="form-group">
                     {" "}
                     <input
@@ -393,7 +375,7 @@ export function Store() {
         </div>
       </div>
     );
-  }
+  };
 
   const View4 = () => {
     //Delete
