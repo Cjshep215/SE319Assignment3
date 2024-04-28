@@ -226,8 +226,10 @@ export function Store() {
         description: "",
         category: "",
         image: "",
-        ratingRate: "",
-        ratingCount: "",
+        rating: {
+          rate: "",
+          count: ""
+        }
       },
     ]);
 
@@ -250,16 +252,29 @@ export function Store() {
 
     useEffect(() => {
       fetch("http://localhost:8081/listProducts")
-      .then((response) => response.json())
-      .then((data) => {
-      setProducts(data);
-      console.log("Load initial Catalog of Products in DELETE :", data);
-      });
-      }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts(data);
+          console.log("Load initial Catalog of Products in DELETE :", data);
+        });
+    }, []);
 
-    function updateOneProduct(){
-
-    }
+    const onSubmit = (data) => {
+      fetch(`http://localhost:8081/update/` + data.id, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          id: Number(data.id),
+          title: data.title,
+          price: Number(data.price),
+          description: data.description,
+          category: data.category,
+          image: data.image,
+          ratingRate: Number(data.ratingRate),
+          ratingCount: Number(data.ratingCount),
+        }),
+      }).then((response) => response.json());
+    };
 
     //Update
     return (
@@ -276,10 +291,8 @@ export function Store() {
                   <button onClick={() => getOneByOneProductNext()}>
                     Next product
                   </button>
-                  <button onClick={() => updateOneProduct(products[index].id)}>
-                    Modify
-                  </button>
                 </div>
+                <br />
                 <div>
                   {/* put item here with information */}
                   <div key={products[index].id}>
@@ -289,10 +302,85 @@ export function Store() {
                     Category: {products[index].category} <br />
                     Description: {products[index].description} <br />
                     Price: {products[index].price} <br />
-                    Rating :{products[index].rating.rate} - (
-                    {products[index].rating.count})<br />
+                    Rating: {products[index].rating.rate}/5 - (
+                    {products[index].rating.count} reviews)
+                    <br />
                   </div>
                 </div>
+              </div>
+              <div className="card-body">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  id="infoForm"
+                >
+                  <div className="form-group">
+                    {" "}
+                    <input
+                      {...register("title", { required: true })}
+                      placeholder="Title"
+                      className="form-control"
+                    />
+                    {errors.title && (
+                      <p className="text-danger">A title is required.</p>
+                    )}
+                    <input
+                      {...register("price", { required: true })}
+                      placeholder="Price"
+                      className="form-control"
+                      // type="number"
+                    />
+                    {errors.price && (
+                      <p className="text-danger">A price is required.</p>
+                    )}
+                    <input
+                      {...register("description", { required: true })}
+                      placeholder="Description"
+                      className="form-control"
+                    />
+                    {errors.description && (
+                      <p className="text-danger">A description is required.</p>
+                    )}
+                    <input
+                      {...register("category", { required: true })}
+                      placeholder="Category"
+                      className="form-control"
+                    />
+                    {errors.category && (
+                      <p className="text-danger">A category is required.</p>
+                    )}
+                    <input
+                      {...register("image", { required: true })}
+                      placeholder="Image Url"
+                      className="form-control"
+                    />
+                    {errors.image && (
+                      <p className="text-danger">An image is required.</p>
+                    )}
+                    <input
+                      {...register("ratingRate", { required: true })}
+                      placeholder="Rating out of 5"
+                      className="form-control"
+                      // type="number"
+                    />
+                    {errors.rating && (
+                      <p className="text-danger">The rating is required.</p>
+                    )}
+                    <input
+                      {...register("ratingCount", { required: true })}
+                      placeholder="Number of ratings"
+                      className="form-control"
+                      type="number"
+                    />
+                    {errors.ratingCount && (
+                      <p className="text-danger">
+                        The number of ratings is required.
+                      </p>
+                    )}
+                    <button type="submit" className="btn btn-primary">
+                      Modify
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
