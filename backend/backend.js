@@ -100,12 +100,12 @@ app.delete("/deleteProduct/:id", async (req, res) => {
   }
 });
 
-app.put("/updateRobot/:id", async (req, res) => {
+app.put("/updateProduct/:id", async (req, res) => {
   const id = Number(req.params.id);
   const query = { id: id };
 
   await client.connect();
-  console.log("Robot to Update :", id);
+  console.log("Product to Update :", id);
 
   // Data for updating the document, typically comes from the request body
   console.log(req.body);
@@ -113,13 +113,13 @@ app.put("/updateRobot/:id", async (req, res) => {
   const updateData = {
     $set: {
       title: req.body.title,
-      price: req.body.price,
+      price: Number(req.body.price),
       description: req.body.description,
       category: req.body.category,
       image: req.body.image,
       rating: {
-        rate: req.body.ratingRate,
-        count: req.body.ratingCount,
+        rate: Number(req.body.ratingRate),
+        count: Number(req.body.ratingCount),
       },
     },
   };
@@ -127,11 +127,11 @@ app.put("/updateRobot/:id", async (req, res) => {
   // Add options if needed, for example { upsert: true } to create a document if it doesn't exist
   const options = {};
   const results = await db
-    .collection("robot")
+    .collection("fakestore_catalog")
     .updateOne(query, updateData, options);
   
   if (results.matchedCount == 0){
-    return res.status(404).send({ message: 'Robot not found' });
+    return res.status(404).send({ message: 'Product not found' });
   }
   res.status(200);
   res.send(results);

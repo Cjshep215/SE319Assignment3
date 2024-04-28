@@ -141,7 +141,7 @@ export function Store() {
         fetch(`http://localhost:8081/${tmpId}`)
           .then((response) => response.json())
           .then((myFavProduct) => {
-            console.log(myFavProduct);
+            // console.log(myFavProduct);
             setMyFavProduct(myFavProduct);
           });
   
@@ -255,13 +255,14 @@ export function Store() {
         .then((response) => response.json())
         .then((data) => {
           setProducts(data);
-          console.log("Load initial Catalog of Products in DELETE :", data);
+          // console.log("Load initial Catalog of Products in Update :", data);
         });
     }, []);
 
     const onSubmit = (data) => {
-      fetch(`http://localhost:8081/update/` + data.id, {
-        method: "POST",
+      // console.log(data);
+      fetch(`http://localhost:8081/updateProduct/` + data.id, {
+        method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           id: Number(data.id),
@@ -315,6 +316,11 @@ export function Store() {
                 >
                   <div className="form-group">
                     {" "}
+                    <input
+                      {...register("id", { required: true })}
+                      placeholder="Id"
+                      className="form-control"
+                    />
                     <input
                       {...register("title", { required: true })}
                       placeholder="Title"
