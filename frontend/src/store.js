@@ -136,7 +136,7 @@ export function Store() {
 
   const View2 = () => {
     const [oneProduct, setOneProduct] = useState([]);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [id, setId] = useState("");
 
     useEffect(() => {
@@ -187,15 +187,15 @@ export function Store() {
           placeholder="Enter ID"
           onChange={(e) => setId(e.target.value)}
         />
-        {oneProduct.map((el) => (
-          <div key={el.id}>
-            <img src={el.image} alt="product" width={30} />
-            <div>Title: {el.title}</div>
-            <div>Category: {el.category}</div>
-            <div>Price: {el.price}</div>
-            <div>Rating: {el.rating.rate}</div>
+        {console.log("Product:", oneProduct)}
+       
+          <div>
+            <img src={oneProduct.image} alt="product" width={30} />
+            <div>Title: {oneProduct.title}</div>
+            <div>Category: {oneProduct.category}</div>
+            <div>Price: {oneProduct.price}</div>
           </div>
-        ))}
+    
         </div>
         <br />
       </div>
