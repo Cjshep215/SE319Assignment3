@@ -247,6 +247,20 @@ export function Store() {
         else setIndex(index - 1);
       }
     }
+
+    useEffect(() => {
+      fetch("http://localhost:8081/listProducts")
+      .then((response) => response.json())
+      .then((data) => {
+      setProducts(data);
+      console.log("Load initial Catalog of Products in DELETE :", data);
+      });
+      }, []);
+
+    function updateOneProduct(){
+
+    }
+
     //Update
     return (
       <div className="container">
