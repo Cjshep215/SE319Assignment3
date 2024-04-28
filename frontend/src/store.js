@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useForm } from "react-hook-form";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 
 export function Store() {
   const [oneView, setOneView] = useState(0);
@@ -20,7 +26,7 @@ export function Store() {
     formState: { errors },
   } = useForm();
 
-  function View1() {
+  const View1 = () => {
     const onSubmit = (data) => {
       fetch(`http://localhost:8081/addProduct`, {
         method: "POST",
@@ -128,7 +134,7 @@ export function Store() {
     );
   }
 
-  function View2() {
+  const View2 = () => {
     function FavProduct(){
       if (showId != 0) {
         let tmpId = showId;
@@ -212,7 +218,7 @@ export function Store() {
   }
   
 
-  function View3() {
+  const View3 = () => {
     //Update
     return (
       <div>
@@ -226,7 +232,7 @@ export function Store() {
     );
   }
 
-  function View4() {
+  const View4 = () => {
     //Delete
     return (
       <div className="container">
@@ -251,7 +257,7 @@ export function Store() {
     );
   }
 
-  function View5() {
+  const View5 = () => {
     //About Us
     return (
       <div>
@@ -357,22 +363,6 @@ export function Store() {
     }
   }
 
-  const setViewOne = () => {
-    setOneView(0);
-  };
-  const setViewTwo = () => {
-    setOneView(1);
-  };
-  const setViewThree = () => {
-    setOneView(2);
-  };
-  const setViewFour = () => {
-    setOneView(3);
-  };
-  const setViewFive = () => {
-    setOneView(4);
-  };
-
   return (
     <div>
       {/* navbar */}
@@ -393,31 +383,31 @@ export function Store() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
+          
           <div className="collapse navbar-collapse" id="navbarsExample03">
             <ul className="navbar-nav me-auto mb-2 mb-sm-0">
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={setViewOne}>
+                <a className="nav-link" aria-current="page" href = "http://localhost:3000/add">
                   Add
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={setViewTwo}>
+                <a className="nav-link" aria-current="page" href = "http://localhost:3000/view">
                   View
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={setViewThree}>
+                <a className="nav-link" aria-current="page" href = "http://localhost:3000/update">
                   Update
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={setViewFour}>
+                <a className="nav-link" aria-current="page" href = "http://localhost:3000/delete">
                   Delete
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={setViewFive}>
+                <a className="nav-link" aria-current="page" href = "http://localhost:3000/studentInfo">
                   Student Information
                 </a>
               </li>
@@ -426,12 +416,16 @@ export function Store() {
           {/* can add a thing on the right here */}
         </div>
       </nav>
-
-      {oneView === 0 && <View1 />}
-      {oneView === 1 && <View2 />}
-      {oneView === 2 && <View3 />}
-      {oneView === 3 && <View4 />}
-      {oneView === 4 && <View5 />}
+      <Router>
+        <Routes>
+          <Route path="/add" element={<View1 />} />
+          <Route path="/view" element={<View2 />} />
+          <Route path="/update" element={<View3 />} />
+          <Route path="/delete" element={<View4 />} />
+          <Route path="/StudentInfo" element={<View5 />} />
+          <Route path="/" element={<View1 />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
