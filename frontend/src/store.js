@@ -216,29 +216,72 @@ export function Store() {
       </div>
     );
   }
-  
-
-  function setUpdateId(updateId){
-    fetch(`http://localhost:8081/${updateId}`)
-      .then((response) => response.json())
-      .then((myProduct) => {
-        console.log(myProduct);
-        setUpdateProduct(myProduct);
-      });
-  }
 
   const View3 = () => {
+    const [products, setProducts] = useState([
+      {
+        id: "",
+        title: "",
+        price: "",
+        description: "",
+        category: "",
+        image: "",
+        ratingRate: "",
+        ratingCount: "",
+      },
+    ]);
+
+    const [index, setIndex] = useState(0);
+    const navigate = useNavigate();
+
+    function getOneByOneProductNext() {
+      if (products.length > 0) {
+        if (index === products.length - 1) setIndex(0);
+        else setIndex(index + 1);
+      }
+    }
+    // Function to review products like carousel
+    function getOneByOneProductPrev() {
+      if (products.length > 0) {
+        if (index === 0) setIndex(products.length - 1);
+        else setIndex(index - 1);
+      }
+    }
     //Update
     return (
       <div className="container">
-        <h1>Update Product:</h1>
         <div className="row row-cols-1 mt-2">
-          <input
-            type="search"
-            id="updateProductId"
-            placeholder="id"
-            onSubmit={(e) => setUpdateId(e.target.value)}
-          ></input>
+          <div className="col">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                {/* delete function inside of here */}
+                <div>
+                  <button onClick={() => getOneByOneProductPrev()}>
+                    Previous product
+                  </button>
+                  <button onClick={() => getOneByOneProductNext()}>
+                    Next product
+                  </button>
+                  <button onClick={() => updateOneProduct(products[index].id)}>
+                    Modify
+                  </button>
+                </div>
+                <div>
+                  {/* put item here with information */}
+                  <div key={products[index].id}>
+                    <img src={products[index].image} width={30} /> <br />
+                    Id:{products[index].id} <br />
+                    Title: {products[index].title} <br />
+                    Category: {products[index].category} <br />
+                    Description: {products[index].description} <br />
+                    Price: {products[index].price} <br />
+                    Rating :{products[index].rating.rate} - (
+                    {products[index].rating.count})<br />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
