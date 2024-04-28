@@ -316,7 +316,7 @@ export function Store() {
       },
     ]);
     const [index, setIndex] = useState(0);
-    
+
     // useEffect to load catalog when load page
     useEffect(() => {
       fetch("http://localhost:8081/listProducts")
@@ -377,6 +377,40 @@ export function Store() {
           alert("Error adding Product:" + error.message); // Display alert if there's an error
         });
     };
+    return (
+      <div>
+        <div className="container">
+          <div className="row row-cols-1 g-2 mb-2 mt-1">
+            {/* <!-- Connors card --> */}
+            <div className="col">
+              <div className="card shadow-sm">
+                <div className="card-body">
+
+                
+                {/* Buttons to simulate carousel */}
+                <div>
+                <button onClick={() => getOneByOneProductPrev()}>Prev</button>
+                <button onClick={() => getOneByOneProductNext()}>Next</button>
+                <button onClick={() => deleteOneProduct(products[index].id)}>
+                  Delete
+                </button>
+                </div>
+                {/* Show product properties, one by one */}
+                <div key={products[index].id}>
+                  <img src={products[index].image} width={30} /> <br />
+                  Id:{products[index].id} <br />
+                  Title: {products[index].title} <br />
+                  Category: {products[index].category} <br />
+                  Price: {products[index].price} <br />
+                  Rating: {products[index].rating.rate} <br />
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const View5 = () => {
