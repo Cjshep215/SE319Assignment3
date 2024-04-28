@@ -212,16 +212,28 @@ export function Store() {
   }
   
 
+  function setUpdateId(updateId){
+    fetch(`http://localhost:8081/${updateId}`)
+      .then((response) => response.json())
+      .then((myProduct) => {
+        console.log(myProduct);
+        setUpdateProduct(myProduct);
+      });
+  }
+
   function View3() {
     //Update
     return (
-      <div>
-        <h1>This is View 3</h1>
-        <img
-          src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
-          width={200}
-          alt="view3"
-        />
+      <div className="container">
+        <h1>Update Product:</h1>
+        <div className="row row-cols-1 mt-2">
+          <input
+            type="search"
+            id="updateProductId"
+            placeholder="id"
+            onSubmit={(e) => setUpdateId(e.target.value)}
+          ></input>
+        </div>
       </div>
     );
   }
